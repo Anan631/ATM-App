@@ -12,17 +12,14 @@ import NotFoundPage from "../pages/NotFoundPage";
 import Protected from "../components/auth/ProtectedRoute";
 
 export const router = createBrowserRouter([
-  { path: "/login", element: <LoginPage /> },
+  { path: "/", element: <LoginPage /> },
   {
-    path: "/",
     element: (
       <Protected>
         <App />
       </Protected>
     ),
     children: [
-      { index: true, element: <Navigate to="dashboard" replace /> },
-
       { path: "dashboard", element: <DashboardPage /> },
       { path: "deposit", element: <DepositPage /> },
       { path: "withdraw", element: <WithdrawPage /> },

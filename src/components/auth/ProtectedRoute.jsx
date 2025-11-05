@@ -5,6 +5,6 @@ export default function Protected({ children }) {
   const { user } = useAuth();
   const location = useLocation();
 
-  if (!user) return <Navigate to="/login" replace state={{ from: location }} />;
+  if (!user) return <Navigate to="/" replace state={{ from: location }} />;
   return children ?? <Outlet />;
 }
