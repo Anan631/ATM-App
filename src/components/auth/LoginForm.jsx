@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [pin, setPin] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const [error, setError] = useState("");
 
   async function handleSubmit(e) {
@@ -20,8 +19,7 @@ function LoginForm() {
     try {
       setError("");
       await login({ username, pin });
-      const dest = location.state?.from?.pathname ?? "/dashboard";
-      navigate(dest, { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch {
       setError("Invalid username or PIN. Please try again.");
     }
