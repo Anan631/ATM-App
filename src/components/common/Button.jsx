@@ -1,14 +1,17 @@
+import React from "react";
+import "./Button.css";
+
 /**
  * Button component
  */
-export default function Button({ 
-  children, 
-  onClick, 
-  type = 'button', 
-  variant = 'primary',
+export default function Button({
+  children,
+  onClick,
+  type = "button",
+  variant = "primary",
   disabled = false,
-  className = '',
-  ...props 
+  className = "",
+  ...props
 }) {
   return (
     <button
@@ -18,12 +21,6 @@ export default function Button({
       className={`btn btn-${variant} ${className}`}
       {...props}
     >
-import React from "react";
-import "./Button.css";
-
-export default function Button({ children, onClick, className = "", type = "button" }) {
-  return (
-    <button type={type} onClick={onClick} className={`btn ${className}`}>
       {children}
     </button>
   );
