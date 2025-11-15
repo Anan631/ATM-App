@@ -1,17 +1,19 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../context/ThemeContext"; 
+import Button from "./Button";
 import "./Navbar.css";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
+  const { isDark, toggleTheme } = useTheme();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
+    navigate("/", { replace: true });
   };
 
   const links = [
@@ -24,12 +26,12 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`navbar ${theme}`}>
+    <nav className="navbar">
       <div className="navbar-container">
         
-        <div className="brand">
-          <img src="/assets/images/logo.png" alt="Logo" className="logo" />
-          <span className="brand-name">Smart ATM</span>
+        <div className="navbar-brand">
+          <span className="navbar-icon">🏦</span>
+          <span className="navbar-name">Smart ATM</span>
         </div>
 
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
@@ -42,17 +44,20 @@ export default function Navbar() {
 
         
         <div className="nav-actions">
-          <button onClick={toggleTheme} className="theme-btn">
-            {theme === "light" ? "🌞" : "🌙"}
+          <button onClick={toggleTheme} className="theme-btn" title="Toggle theme">
+            {isDark ? "☀️" : "🌙"}
           </button>
 
           {user && <span className="user-name">{user.first_name}</span>}
 
-          <button onClick={handleLogout} className="logout-btn">
+          <Button 
+            onClick={handleLogout} 
+            variant="danger"
+            className="logout-btn"
+          >
             Logout
-          </button>
+          </Button>
 
-          {/* Mobile menu toggle */}
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
             ☰
           </button>
