@@ -1,0 +1,84 @@
+.settings-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.settings-page h1 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: var(--text);
+  font-size: 2rem;
+}
+
+.settings-card {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.settings-card h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.settings-section p {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.settings-button {
+  align-self: flex-start;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.settings-button.danger {
+  background: #d32f2f;
+  color: white;
+}
+
+.settings-button.danger:hover:not(:disabled) {
+  background: #b71c1c;
+}
+
+.settings-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+[data-theme="dark"] .settings-card {
+  background: #2d2d2d;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .settings-page {
+    padding: 1rem;
+  }
+
+  .settings-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .settings-card {
+    padding: 1rem;
+  }
+
+  .settings-card h2 {
+    font-size: 1.1rem;
+  }
+}
+
