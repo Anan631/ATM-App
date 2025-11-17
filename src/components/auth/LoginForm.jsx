@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [pin, setPin] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,12 +18,14 @@ function LoginForm() {
     }
 
     try {
+      setLoading(true);
       setError("");
       await login({ username, pin });
-      const dest = location.state?.from?.pathname ?? "/dashboard";
-      navigate(dest, { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch {
       setError("Invalid username or PIN. Please try again.");
+    } finally {
+      setLoading(true);
     }
   }
 
@@ -43,7 +45,9 @@ function LoginForm() {
         placeholder="PIN"
         autoComplete="current-password"
       />
-      <button type="submit">Login</button>
+      <button type="submit" disabled={!username || !pin || loading}>
+        {loading ? "Logging in..." : "Login"}
+      </button>
       {error && <p>{error}</p>}
     </form>
   );
