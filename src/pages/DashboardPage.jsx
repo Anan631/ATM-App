@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useBirthday } from "../hooks/useBirthday";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
 import BirthdayPopup from "../components/popups/BirthdayPopup";
-import Navbar from "../components/common/Navbar";
 import BalanceCard from "../components/dashboard/BalanceCard";
 import SummaryBar from "../components/dashboard/SummaryBar";
 import UserProfile from "../components/dashboard/UserProfile";
@@ -13,8 +12,7 @@ import QuickActions from "../components/dashboard/QuickActions";
 import "./DashboardPage.css";
 
 export default function DashboardPage() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
   const { showBirthdayPopup, setShowBirthdayPopup } = useBirthday(user);
   const [summary, setSummary] = useState({ deposits: 0, withdrawals: 0, total: 0 });
 
@@ -36,11 +34,6 @@ export default function DashboardPage() {
     }
   }, [user]);
 
-  function handleLogout() {
-    logout();
-    navigate("/", { replace: true });
-  }
-
   if (!user) {
     return (
       <div className="dashboard-error">
@@ -51,9 +44,7 @@ export default function DashboardPage() {
 
   return (
     <div className="dashboard-page">
-      <Navbar onLogout={handleLogout} />
-      
-      <main className="dashboard-content">
+      <div className="dashboard-content">
         <div className="dashboard-grid">
           <div className="dashboard-top">
             <UserProfile user={user} />
@@ -99,14 +90,14 @@ export default function DashboardPage() {
             </Card>
           </div>
         </div>
-      </main>
 
-      {showBirthdayPopup && (
-        <BirthdayPopup 
-          userName={user.first_name}
-          onClose={() => setShowBirthdayPopup(false)}
-        />
-      )}
+        {showBirthdayPopup && (
+          <BirthdayPopup 
+            userName={user.first_name}
+            onClose={() => setShowBirthdayPopup(false)}
+          />
+        )}
+      </div>
     </div>
   );
 }
