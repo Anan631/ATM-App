@@ -64,7 +64,6 @@ export function useTransactions(userId) {
   useEffect(() => {
     if (userId) fetchTransactions();
   }, [userId, fetchTransactions]);
-
   return {
     transactions,
     filteredTransactions,
