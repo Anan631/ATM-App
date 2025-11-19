@@ -1,7 +1,3 @@
-/**
- * Base API service for making HTTP requests
- */
-
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://690868602d902d0651b02a38.mockapi.io/api/v1';
 
 export async function get(endpoint) {
@@ -47,7 +43,7 @@ export async function post(endpoint, data) {
 export async function put(endpoint, data) {
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: 'PATCH',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
