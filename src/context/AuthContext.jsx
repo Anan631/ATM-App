@@ -32,10 +32,8 @@ export default function AuthProvider({ children }) {
 
     if (!record) throw new Error("Invalid credentials");
 
-    // ⭐ Save in React state
     setUser(record);
 
-    // ⭐ Save to localStorage so other pages know who is logged in
     localStorage.setItem("userId", record.id);
     localStorage.setItem("user", JSON.stringify(record));
 
