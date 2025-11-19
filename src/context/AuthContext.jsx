@@ -3,12 +3,10 @@ import { AuthCtx } from "../hooks/useAuth";
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    // Initialize from localStorage if available
     const stored = localStorage.getItem("user");
     return stored ? JSON.parse(stored) : null;
   });
 
-  // Persist user to localStorage whenever it changes
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
