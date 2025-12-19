@@ -1,38 +1,20 @@
 import { useEffect, useState, useCallback } from "react";
+import { applyTransactionFilters } from "../utils/filtering";
+import { sortTransactionsByDateDesc } from "../utils/sorting";
+import { FILTER_DEFAULTS } from "../utils/constants";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export function useTransactions(userId, userTransactions = null) {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [filter, setFilter] = useState({
-    type: "all",
-    startDate: null,
-    endDate: null,
-  });
+  const [filter, setFilter] = useState(FILTER_DEFAULTS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const applyFilter = useCallback((list, filter) => {
-    let result = [...list];
-
-    if (filter.type !== "all") {
-      result = result.filter(
-        (t) => t.type.toLowerCase() === filter.type.toLowerCase()
-      );
-    }
-
-    if (filter.startDate) {
-      const start = new Date(filter.startDate);
-      result = result.filter((t) => new Date(t.date) >= start);
-    }
-
-    if (filter.endDate) {
-      const end = new Date(filter.endDate);
-      result = result.filter((t) => new Date(t.date) <= end);
-    }
-
-    setFilteredTransactions(result);
+  const applyFilter = useCallback((list, filterConfig) => {
+    const filtered = applyTransactionFilters(list, filterConfig);
+    setFilteredTransactions(filtered);
   }, []);
 
   const fetchTransactions = useCallback(async () => {
@@ -41,7 +23,7 @@ export function useTransactions(userId, userTransactions = null) {
       setError("");
 
       if (userTransactions && Array.isArray(userTransactions)) {
-        const sorted = [...userTransactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+        const sorted = sortTransactionsByDateDesc(userTransactions);
         setTransactions(sorted);
         applyFilter(sorted, filter);
         setLoading(false);
@@ -54,7 +36,7 @@ export function useTransactions(userId, userTransactions = null) {
       const user = await res.json();
       const list = user[0]?.transactions || [];
 
-      const sorted = list.sort((a, b) => new Date(b.date) - new Date(a.date));
+      const sorted = sortTransactionsByDateDesc(list);
 
       setTransactions(sorted);
       applyFilter(sorted, filter);
@@ -71,7 +53,7 @@ export function useTransactions(userId, userTransactions = null) {
 
   useEffect(() => {
     if (userTransactions && Array.isArray(userTransactions)) {
-      const sorted = [...userTransactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+      const sorted = sortTransactionsByDateDesc(userTransactions);
       setTransactions(sorted);
       applyFilter(sorted, filter);
       setLoading(false);
