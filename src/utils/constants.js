@@ -12,6 +12,36 @@ export const TRANSACTION_TYPES = {
   TRANSFER: 'Transfer',
 };
 
+
+export const FILTER_TYPES = {
+  ALL: 'all',
+  DEPOSIT: 'Deposit',
+  WITHDRAW: 'Withdraw',
+  TRANSFER: 'Transfer',
+};
+
+export const FILTER_DEFAULTS = {
+  type: FILTER_TYPES.ALL,
+  startDate: null,
+  endDate: null,
+};
+
+// UI Text constants
+export const UI_TEXT = {
+  ALL: 'All',
+  DEPOSIT: 'Deposit',
+  WITHDRAW: 'Withdraw',
+  TRANSFER: 'Transfer',
+  FILTER_TRANSACTIONS: 'Filter Transactions',
+  TRANSACTION_TYPE: 'Transaction Type',
+  DATE_RANGE: 'Date Range',
+  START_DATE: 'Start Date',
+  END_DATE: 'End Date',
+  RESET_FILTERS: 'Reset Filters',
+  NO_TRANSACTIONS: 'No transactions found.',
+  LOADING_TRANSACTIONS: 'Loading transactions...',
+};
+
 // Currency
 export const DEFAULT_CURRENCY = 'ILS';
 

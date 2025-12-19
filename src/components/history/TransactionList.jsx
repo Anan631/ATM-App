@@ -1,13 +1,12 @@
 import TransactionCard from '../transactions/TransactionCard';
+import { UI_TEXT } from '../../utils/constants';
 
-/**
- * Transaction list component
- */
+
 export default function TransactionList({ transactions, loading, error }) {
   if (loading) {
     return (
       <div className="transaction-list-loading">
-        <p>Loading transactions...</p>
+        <p>{UI_TEXT.LOADING_TRANSACTIONS}</p>
       </div>
     );
   }
@@ -23,7 +22,7 @@ export default function TransactionList({ transactions, loading, error }) {
   if (transactions.length === 0) {
     return (
       <div className="transaction-list-empty">
-        <p>No transactions found.</p>
+        <p>{UI_TEXT.NO_TRANSACTIONS}</p>
       </div>
     );
   }
